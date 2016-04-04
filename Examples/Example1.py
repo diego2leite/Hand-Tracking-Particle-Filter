@@ -44,7 +44,9 @@ if __name__ == "__main__":
     from itertools import izip
     import time
     ion()
+    
     seq = [ im for im in zeros((20,240,320), int)]      # Create an image sequence of 20 frames long
+    
     x0 = array([120, 160])                              # Add a square with starting position x0 moving along trajectory xs
     xs = vstack((arange(20)*3, arange(20)*2)).T + x0
     for t, x in enumerate(xs):
@@ -53,6 +55,7 @@ if __name__ == "__main__":
         seq[t][xslice, yslice] = 255
     
     for im, p in izip(seq, particlefilter(seq, x0, 8, 100)): # Track the square through the sequence
+        #print p
         pos, xs, ws = p
         position_overlay = zeros_like(im)
         position_overlay[tuple(pos)] = 1
@@ -63,8 +66,9 @@ if __name__ == "__main__":
         #time.sleep(0.3)
         clf()                                           # Causes flickering, but without the spy plots aren't overwritten
         imshow(im,cmap=cm.gray)                         # Plot the image
+        
+        spy(particle_overlay, marker='.', color='r')    # Plot the particles
         spy(position_overlay, marker='.', color='b')    # Plot the expected position
-        spy(particle_overlay, marker=',', color='r')    # Plot the particles
     show()
     
     

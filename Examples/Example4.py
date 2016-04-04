@@ -96,7 +96,7 @@ if __name__ == "__main__":
         #cv2.imshow('frame', frame_depth_edited)
         #cv2.waitKey(10)
     
-    #ion()
+    ion()
     
     #seq = [ im for im in np.zeros((20,240,320), int)]      # Create an image sequence of 20 frames long
     seq = [ im for im in frames]      # Create an image sequence of 20 frames long
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     
     i = 0
     
-    for im, p in itertools.izip(seq, particlefilter(seq, x0, 25, 500)): # Track the square through the sequence
+    for im, p in itertools.izip(seq, particlefilter(seq, x0, 25, 100)): # Track the square through the sequence
         print i
         i = i + 1
         
@@ -120,26 +120,15 @@ if __name__ == "__main__":
         particle_overlay = np.zeros_like(im)
         particle_overlay[tuple(xs.T)] = 1
         
-        #frame = cv2.cvtColor(frame_depth_edited,cv2.COLOR_GRAY2RGB)
-# #              
-# #             cv2.circle(frame,(225,125), 5, (0,255,0), -1)
-# #             cv2.imshow('frame', frame)
-# #             cv2.waitKey()
-        
-        frame = cv2.cvtColor(im,cv2.COLOR_GRAY2RGB)
-        cv2.circle(frame,(np.nonzero(position_overlay)[1][0],np.nonzero(position_overlay)[0][0]), 4, (0,255,0), -1)
-        cv2.imshow('frame', frame)
-        cv2.waitKey(30)
-        
-        #hold(True)
-        #draw()
+        hold(True)
+        draw()
         #time.sleep(0.3)
         clf()                                           # Causes flickering, but without the spy plots aren't overwritten
-        #imshow(im,cmap=cm.gray)                         # Plot the image
+        imshow(im,cmap=cm.gray)                         # Plot the image
         
         #spy(particle_overlay, marker='.', color='r')    # Plot the particles
-        #spy(position_overlay, marker='.', color='g')    # Plot the expected position
-    #show()
+        spy(position_overlay, marker='.', color='g')    # Plot the expected position
+    show()
     
 #     nFiles = 2000 - 1500
 #     
